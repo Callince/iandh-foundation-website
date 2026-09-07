@@ -6,4 +6,6 @@ dist
 # Source PNGs from the image generator: 32 MB, and nothing on the site loads them
 # — every served image is the .webp beside it. They stay on disk; keep a copy in
 # your own storage. Delete these two lines if you want the originals versioned.
-images/*.png
+public/images/*.png
+
+.vercel

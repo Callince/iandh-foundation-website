@@ -18,7 +18,8 @@ backend:
   repo: Callince/iandh-foundation-website
   branch: main
 
-media_folder: images
+# where uploads are written on disk, and the URL they are served at
+media_folder: public/images
 public_folder: /images
 
 site_url: https://iandhfoundation.org
