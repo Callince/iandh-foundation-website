@@ -1,0 +1,158 @@
+# Decap CMS configuration.
+#
+# LOCAL EDITING (works today, no accounts, no hosting):
+#   1. pnpm dev
+#   2. in a second terminal: npx decap-server
+#   3. open http://localhost:5500/admin/
+#   Saving writes straight to the JSON files in content/ on this machine.
+#
+# PRODUCTION (needs a git repo + a host that builds on push):
+#   - delete the `local_backend` line below
+#   - set backend.repo to your GitHub repo, e.g. iandh-foundation/website
+#   - deploy on Netlify or Cloudflare Pages and enable their OAuth for Decap
+#   Editors then log in with GitHub and each save becomes a commit + rebuild.
+
+local_backend: true
+
+backend:
+  name: github
+  repo: OWNER/REPO # <-- replace before going live
+  branch: main
+
+media_folder: images
+public_folder: /images
+
+site_url: https://iandhfoundation.org
+logo_url: /images/logo.webp
+
+collections:
+  - name: events
+    label: Events
+    files:
+      - name: events
+        label: Upcoming events
+        file: content/events.json
+        description: >-
+          Dates drive the live countdown on the home page and /events.html.
+          An event with a past date moves itself to "Past Events" automatically.
+        fields:
+          - name: items
+            label: Events
+            label_singular: Event
+            widget: list
+            fields:
+              - { name: title, label: Event name, widget: string }
+              - name: at
+                label: Date and start time
+                widget: datetime
+                format: "YYYY-MM-DDTHH:mm"
+                date_format: "DD MMM YYYY"
+                time_format: "HH:mm"
+              - { name: time, label: Times shown on the card, widget: string, hint: "e.g. 9:00 AM – 4:00 PM" }
+              - { name: place, label: Venue, widget: string }
+              - { name: detail, label: Description, widget: text }
+              - name: photo
+                label: Event photo
+                widget: image
+                required: false
+                hint: Leave empty to use the stand-in below.
+              - name: fallback
+                label: Stand-in photo
+                widget: image
+                hint: Shown until a dedicated event photo is uploaded.
+
+  - name: stories
+    label: Stories of Hope
+    files:
+      - name: stories
+        label: Stories
+        file: content/stories.json
+        description: >-
+          Only publish a story with the person's consent. The full text is
+          optional — leave it empty and no "Read More" link appears.
+        fields:
+          - name: items
+            label: Stories
+            label_singular: Story
+            widget: list
+            fields:
+              - { name: title, label: Headline, widget: string }
+              - { name: blurb, label: Short summary, widget: text }
+              - { name: image, label: Photo, widget: image }
+              - { name: full, label: Full story, widget: text, required: false }
+
+  - name: testimonials
+    label: Testimonials
+    files:
+      - name: testimonials
+        label: What people say
+        file: content/testimonials.json
+        description: Publish only quotes you have permission to attribute.
+        fields:
+          - name: items
+            label: Testimonials
+            label_singular: Testimonial
+            widget: list
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: name, label: Name, widget: string }
+              - { name: detail, label: Description, widget: string, hint: "e.g. Volunteer since 2023" }
+              - name: role
+                label: Type
+                widget: select
+                options: [Volunteer, Beneficiary, Donor, CSR Partner]
+
+  - name: partners
+    label: Partners & Donors
+    files:
+      - name: partners
+        label: Partners
+        file: content/partners.json
+        description: >-
+          Only list organisations that have agreed to appear, and use the logo
+          file they supplied. Without a logo the card shows their name as text.
+        fields:
+          - name: items
+            label: Partners
+            label_singular: Partner
+            widget: list
+            fields:
+              - { name: name, label: Organisation, widget: string }
+              - { name: sub, label: Descriptor, widget: string, hint: "e.g. Foundation, Trusts" }
+              - { name: logo, label: Logo, widget: image, required: false }
+
+  - name: stats
+    label: Impact Numbers
+    files:
+      - name: stats
+        label: Impact numbers
+        file: content/stats.json
+        description: These appear in the navy band. Use figures you can evidence.
+        fields:
+          - name: items
+            label: Numbers
+            label_singular: Number
+            widget: list
+            fields:
+              - { name: value, label: Number, widget: number, value_type: int }
+              - { name: label, label: Caption, widget: string }
+              - name: icon
+                label: Icon
+                widget: select
+                options: [people, heart, school, cross, home, book, leaf]
+
+  - name: gallery
+    label: Gallery
+    files:
+      - name: gallery
+        label: Moments of Impact
+        file: content/gallery.json
+        description: Alt text is read aloud by screen readers — describe the photo.
+        fields:
+          - name: items
+            label: Images
+            label_singular: Image
+            widget: list
+            fields:
+              - { name: image, label: Photo, widget: image }
+              - { name: alt, label: Description, widget: string }

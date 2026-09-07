@@ -1,0 +1,11 @@
+{
+  "items": [
+    { "name": "TATA", "sub": "Trusts", "logo": "partner-tata.webp" },
+    { "name": "Reliance", "sub": "Foundation", "logo": "partner-reliance.webp" },
+    { "name": "HDFC Bank", "sub": "Parivartan", "logo": "partner-hdfc.webp" },
+    { "name": "Infosys", "sub": "Foundation", "logo": "partner-infosys.webp" },
+    { "name": "Wipro", "sub": "Cares", "logo": "partner-wipro.webp" },
+    { "name": "Tech Mahindra", "sub": "Foundation", "logo": "partner-techmahindra.webp" },
+    { "name": "Flipkart", "sub": "Foundation", "logo": "partner-flipkart.webp" }
+  ]
+}

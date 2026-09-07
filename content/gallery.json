@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "image": "about-classroom.webp", "alt": "Children in a classroom session" },
+    { "image": "program-disaster.webp", "alt": "Relief volunteers after the floods" },
+    { "image": "program-education.webp", "alt": "Students with new learning materials" },
+    { "image": "program-food.webp", "alt": "Volunteers distributing meals" },
+    { "image": "story-ramesh-before.webp", "alt": "A student on our education programme" },
+    { "image": "hero-children.webp", "alt": "Schoolchildren after a community session" }
+  ]
+}

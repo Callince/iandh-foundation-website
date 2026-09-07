@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "quote": "Volunteering here changed how I see my own city. In six months our team reached four villages, and the foundation made every rupee and every hour visible to us.", "name": "Priya Raghavan", "detail": "Volunteer since 2023", "role": "Volunteer" },
+    { "quote": "My daughter went back to school because of their education support. Today she says she wants to be a doctor. I have no words, only gratitude.", "name": "Selvi Murugan", "detail": "Parent, Thiruvallur", "role": "Beneficiary" },
+    { "quote": "I give monthly and I get a proper receipt and an impact report every quarter. That transparency is exactly why I keep giving.", "name": "Arun Prakash", "detail": "Monthly donor", "role": "Donor" },
+    { "quote": "We ran our CSR health programme with I&H across twelve villages. Clean reporting, solid execution on the ground, no surprises.", "name": "Meera Iyer", "detail": "CSR Lead, partner company", "role": "CSR Partner" },
+    { "quote": "After the floods their team reached us before anyone else. Food, medicine, and people who stayed to help us rebuild.", "name": "Karthik Doss", "detail": "Relief beneficiary, Kanchipuram", "role": "Beneficiary" }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "at": "2026-10-11T09:00",
+      "title": "Free Health & Eye Camp",
+      "time": "9:00 AM – 4:00 PM",
+      "place": "Govt. School, Thiruvallur",
+      "photo": "event-health.webp",
+      "fallback": "program-healthcare.webp",
+      "detail": "A full day of free general health checks, eye testing and referrals, run with visiting doctors and local volunteers."
+    },
+    {
+      "at": "2026-11-08T10:00",
+      "title": "Skills Training for Women",
+      "time": "10:00 AM – 3:00 PM",
+      "place": "I&H Community Centre, Trichy",
+      "photo": "event-skills.webp",
+      "fallback": "program-women.webp",
+      "detail": "A practical session on tailoring and small-business basics for women looking to build an independent income."
+    },
+    {
+      "at": "2026-12-06T08:30",
+      "title": "Tree Plantation Drive",
+      "time": "8:30 AM – 12:00 PM",
+      "place": "Lake Road, Kanchipuram",
+      "photo": "event-trees.webp",
+      "fallback": "program-environment.webp",
+      "detail": "Planting native saplings along the lake road with schoolchildren and volunteers. Bring water and a hat."
+    }
+  ]
+}
