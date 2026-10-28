@@ -11,6 +11,7 @@
   /* full-bleed rows pad to the same edge the .wrap container uses */
   --edge:max(var(--gut),calc((100% - var(--max)) / 2));
   --sec:clamp(64px,9vw,112px);
+  --head:76px;
   /* radius by hierarchy: controls < cards < large media */
   --r:10px; --r-md:18px; --r-lg:28px;
   --sh:0 24px 56px -28px rgba(14,42,104,.35);
@@ -64,7 +65,7 @@ h3{font-weight:650;line-height:1.2}
 .skip{position:absolute;left:-9999px;top:8px;z-index:60;background:var(--navy);color:#fff;
   padding:10px 16px;border-radius:var(--r);font-weight:600}
 .skip:focus{left:8px}
-header{position:sticky;top:0;z-index:50;height:76px;display:flex;align-items:center;gap:36px;
+header{position:sticky;top:0;z-index:50;height:var(--head);display:flex;align-items:center;gap:36px;
   padding-inline:var(--edge);background:#fff;border-bottom:1px solid transparent;transition:border-color .2s}
 .is-scrolled header{border-color:var(--line)}
 .brand{flex:none;display:block}
@@ -96,14 +97,20 @@ header nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:0;h
 .kolam .kl{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
 
 /* ---------- hero ---------- */
+/* Exactly one screen under the header. Type and spacing scale with the screen's
+   height as well as its width (svh, so phone toolbars don't count), and the photo
+   fills whatever height is left instead of setting it. Content that still doesn't
+   fit makes the hero taller rather than clipping. */
 .hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);align-items:center;
-  padding:clamp(40px,6vw,88px) var(--edge) clamp(24px,3vw,40px)}
-.hero h1{font-size:clamp(44px,5.6vw,80px)}
-.lead{margin-top:24px;font-size:clamp(18px,1.5vw,21px);color:var(--slate);max-width:54ch}
-.hero .doors{margin-top:clamp(32px,4vw,48px)}
-.hero-media{position:relative;isolation:isolate}
-.hero-photo{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--mist)}
-.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:80% 35%;scale:1.12;--d:5%}
+  min-height:clamp(480px,calc(100svh - var(--head)),1000px);padding:clamp(20px,4svh,56px) var(--edge)}
+.hero h1{font-size:clamp(40px,min(5.6vw,7.6svh),80px)}
+.lead{margin-top:clamp(12px,2.4svh,24px);font-size:clamp(16px,min(1.5vw,2.4svh),21px);color:var(--slate);max-width:54ch}
+.hero .doors{margin-top:clamp(20px,4svh,48px)}
+.hero .door{padding:clamp(16px,2.6svh,28px)}
+.hero .door-actions{padding-top:clamp(14px,2.4svh,24px)}
+.hero-media{position:relative;isolation:isolate;align-self:stretch}
+.hero-photo{position:relative;height:100%;border-radius:var(--r-lg);overflow:hidden;background:var(--mist)}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:80% 35%;scale:1.12;--d:5%}
 /* the welcome drawn at the threshold: tucked behind the photo's corner, so it
    never crosses the people in it */
 .hero .kolam{position:absolute;z-index:-1;width:clamp(170px,18vw,260px);left:-24%;bottom:-15%;color:var(--red);--d:-36px}
@@ -430,10 +437,10 @@ footer{background:var(--night);color:#c3cfe6;padding:56px var(--edge) 32px;borde
   .burger{display:flex}
 }
 @media(max-width:960px){
-  .hero{grid-template-columns:1fr}
-  .hero-photo{aspect-ratio:3/2}
-  .hero .kolam{left:-36px;bottom:-72px;width:170px}
-  .hero-media{margin-bottom:40px}
+  /* stacked: the copy sizes itself, the photo row takes the rest of the screen */
+  .hero{grid-template-columns:1fr;grid-template-rows:auto 1fr;row-gap:clamp(20px,3svh,40px)}
+  .hero-media{min-height:clamp(100px,14svh,480px)}
+  .hero .kolam{left:-30px;bottom:-56px;width:140px}
   .work-grid{grid-template-columns:repeat(2,1fr)}
   .work-tile{aspect-ratio:3/2}
   .rail{grid-auto-columns:calc((100% - 24px) / 2)}
@@ -460,8 +467,16 @@ footer{background:var(--night);color:#c3cfe6;padding:56px var(--edge) 32px;borde
   .gal{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:640px){
-  header{height:68px;gap:12px}
-  header nav{top:68px}
+  :root{--head:68px}
+  header{gap:12px}
+  header nav{top:var(--head)}
+  /* on a phone both doors sit side by side so they share the first screen; the
+     one-line descriptions go (the lead above already says what happens) */
+  .hero .doors{grid-template-columns:1fr 1fr;gap:10px}
+  .hero .door>p{display:none}
+  .hero .door h2{font-size:26px}
+  .hero .door .btn{align-self:stretch;padding:0 12px}
+  .hero .door-actions p{font-size:15px}
   .brand img{height:40px}
   .head-actions{gap:8px}
   .head-actions .btn.sm{height:40px;padding:0 12px}
