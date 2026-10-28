@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Ico, Header, Footer, usePageChrome, ToTop } from './shared.jsx';
+import { Ico, Header, Footer, PageHead, usePageChrome, ToTop } from './shared.jsx';
 
 /* Written from what this site actually does: it publishes information, takes
    support requests and event registrations through one form, and collects
@@ -23,17 +23,10 @@ function App() {
   return (<>
     <Header current="/terms.html" />
     <main id="main">
-      <section className="page-head">
-        <div className="page-head-inner">
-          <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="/#home">Home</a> <span aria-hidden="true">/</span>
-            <span aria-current="page">Terms &amp; Conditions</span>
-          </nav>
-          <h1>Terms &amp; Conditions</h1>
-          <p>What you can expect from this website, and what we ask of you when you use it.</p>
-          <p className="page-head-meta">Last updated <Todo>date these terms were approved</Todo></p>
-        </div>
-      </section>
+      <PageHead crumb="Terms and conditions" title="Terms and conditions"
+                meta={<>Last updated <Todo>date these terms were approved</Todo></>}>
+        What you can expect from this website, and what we ask of you when you use it.
+      </PageHead>
 
       <div className="legal">
         <aside className="legal-note urgent">

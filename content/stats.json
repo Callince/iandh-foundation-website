@@ -1,8 +1,24 @@
 {
   "items": [
-    { "icon": "people", "value": 25000, "label": "Lives Touched" },
-    { "icon": "heart", "value": 150, "label": "Community Programs" },
-    { "icon": "people", "value": 10000, "label": "Volunteers" },
-    { "icon": "heart", "value": 100, "label": "Partners & Donors" }
+    {
+      "icon": "people",
+      "value": 25000,
+      "label": "People reached"
+    },
+    {
+      "icon": "heart",
+      "value": 150,
+      "label": "Community programmes"
+    },
+    {
+      "icon": "people",
+      "value": 10000,
+      "label": "Volunteers"
+    },
+    {
+      "icon": "heart",
+      "value": 100,
+      "label": "Partners and donors"
+    }
   ]
 }

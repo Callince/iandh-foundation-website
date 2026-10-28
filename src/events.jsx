@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Ico, Arrow, Title, Header, Footer, Cta, usePageChrome, ToTop,
-         EVENTS, EventCard, timeLeft } from './shared.jsx';
+import { Title, Header, Footer, Cta, PageHead, usePageChrome, ToTop, EVENTS, EventRow } from './shared.jsx';
+import { isUpcoming } from './when.js';
 
 /* Registration happens on the home page form. The link carries the event name in
    the query string so the form can preselect it after the page change — component
@@ -9,71 +9,59 @@ import { Ico, Arrow, Title, Header, Footer, Cta, usePageChrome, ToTop,
 const registerHref = title => `/?event=${encodeURIComponent(title)}#help`;
 
 const EXPECT = [
-  ['people', 'Everyone is welcome', 'You do not need to be a member, a donor or a volunteer to come to one of our camps or drives.'],
-  ['heart', 'Nothing to pay', 'Our camps and community events are free. If a session has a materials cost we say so when you register.'],
-  ['target', 'Come for part of it', 'Most events run for several hours. Turn up for the part you can manage — you do not have to stay all day.'],
-  ['home', 'Bring family', 'Children are welcome with a parent or guardian. Tell us numbers when you register so we can plan.'],
+  ['Everyone is welcome', 'You do not need to be a member, a donor or a volunteer to come to one of our camps or drives.'],
+  ['Nothing to pay', 'Our camps and community events are free. If a session has a materials cost, we tell you when you register.'],
+  ['Come for part of it', 'Most events run for several hours. Come for the part you can manage; you do not have to stay all day.'],
+  ['Bring your family', 'Children are welcome with a parent or guardian. Tell us how many are coming when you register.'],
 ];
 
 function App() {
   const up = usePageChrome();
-  const upcoming = EVENTS.filter(e => timeLeft(e.at));
-  const past = EVENTS.filter(e => !timeLeft(e.at));
+  const upcoming = EVENTS.filter(e => isUpcoming(e.at));
+  // most recent first: the last thing that happened is the most relevant
+  const past = EVENTS.filter(e => !isUpcoming(e.at)).reverse();
   return (<>
     <Header current="/events.html" />
     <main id="main">
-      <section className="page-head">
-        <div className="page-head-inner">
-          <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="/#home">Home</a> <span aria-hidden="true">/</span>
-            <span aria-current="page">Events</span>
-          </nav>
-          <h1>Events</h1>
-          <p>Health camps, skills sessions and community drives. Come along, bring someone,
-             or lend a few hours — every one of these runs on volunteers.</p>
-        </div>
-      </section>
+      <PageHead crumb="Events" title="Events">
+        Health camps, skills sessions and community drives. Come along, bring someone, or lend
+        a few hours: every one of these runs on volunteers.
+      </PageHead>
 
-      <section className="events" id="upcoming">
-        <Title sub={upcoming.length
-          ? 'Register below and we will send joining details and directions.'
-          : 'Nothing scheduled at the moment — check back, or ask us what is coming up.'}>
-          Upcoming Events
+      <section className="wrap section" id="upcoming">
+        <Title sub={upcoming.length ? 'Register and we will send joining details and directions.' : null}>
+          Upcoming events
         </Title>
         {upcoming.length > 0 ? (
-          <div className="events-grid">
+          <div className="events">
             {upcoming.map(ev => (
-              <EventCard key={ev.title} event={ev} blurb
-                action={<a className="btn navy" href={registerHref(ev.title)}>
-                          Register Interest <Arrow /></a>} />
+              <EventRow key={ev.title} event={ev} blurb
+                action={<a className="btn navy sm" href={registerHref(ev.title)}>Register interest</a>} />
             ))}
           </div>
         ) : (
-          <p className="events-empty">
-            We publish new camps and drives here as they are confirmed. To hear about them
-            first, <a href="/#newsletter">join the newsletter</a> or{' '}
-            <a href="/contact.html">get in touch</a>.
+          <p className="empty">
+            Nothing is scheduled right now. New camps and drives appear here as they are
+            confirmed. <a href="/#newsletter">Join the newsletter</a> to hear first, or{' '}
+            <a href="/contact.html">ask us what is coming up</a>.
           </p>
         )}
       </section>
 
-      <section className="expect">
-        <Title sub="A few things worth knowing before you come.">What to Expect</Title>
-        <div className="expect-grid">
-          {EXPECT.map(([ic, t, d]) => (
-            <article className="expect-card rv" key={t}>
-              <span><Ico n={ic} s={19} /></span>
-              <div><h3>{t}</h3><p>{d}</p></div>
-            </article>
-          ))}
+      <section className="band">
+        <div className="wrap">
+          <Title sub="A few things worth knowing before you come.">What to expect</Title>
+          <ul className="rules two">
+            {EXPECT.map(([t, d]) => <li key={t}><h3>{t}</h3><p>{d}</p></li>)}
+          </ul>
         </div>
       </section>
 
       {past.length > 0 && (
-        <section className="events" id="past">
-          <Title sub="Thank you to everyone who turned up.">Past Events</Title>
-          <div className="events-grid past">
-            {past.map(ev => <EventCard key={ev.title} event={ev} blurb action={null} />)}
+        <section className="wrap section" id="past">
+          <Title sub="Thank you to everyone who came.">Past events</Title>
+          <div className="events">
+            {past.map(ev => <EventRow key={ev.title} event={ev} blurb action={null} />)}
           </div>
         </section>
       )}

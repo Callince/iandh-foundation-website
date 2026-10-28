@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Ico, Header, Footer, usePageChrome, ToTop } from './shared.jsx';
+import { Header, Footer, PageHead, usePageChrome, ToTop } from './shared.jsx';
 
 /* Everything stated here is derived from what the site's code actually does:
    two forms posting to Formspree, Google Fonts loaded from a CDN, no cookies,
@@ -48,22 +48,13 @@ function App() {
   return (<>
     <Header current="/privacy.html" />
     <main id="main">
-      <section className="page-head">
-        <div className="page-head-inner">
-          <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="/#home">Home</a> <span aria-hidden="true">/</span>
-            <span aria-current="page">Privacy Policy</span>
-          </nav>
-          <h1>Privacy Policy</h1>
-          <p>What we collect when you contact us, why we collect it, who else can see it,
-             and how to get it removed.</p>
-          <p className="page-head-meta">Last updated <Todo>date this policy was approved</Todo></p>
-        </div>
-      </section>
+      <PageHead crumb="Privacy policy" title="Privacy policy"
+                meta={<>Last updated <Todo>date this policy was approved</Todo></>}>
+        What we collect when you contact us, why we collect it, who else can see it, and how to get it removed.
+      </PageHead>
 
       <div className="legal">
         <aside className="legal-note">
-          <Ico n="eye" s={20} />
           <div>
             <b>In short</b>
             <p>We only ask for what we need to help you. We do not use cookies, analytics or
